@@ -15,7 +15,10 @@
     <p>Welcome! Type a message to ChatGPT.</p>
   </div>
 
-  <script type="text/javascript">
+    <script type="text/javascript">
+    console.log("API KEY:", apiKey);
+    console.log("User message:", userMessage);
+    console.log("ChatGPT response:", chatGPTResponse);
     const apiKey = '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';
     const chatGPT = new ChatGPT({
       key: apiKey,
