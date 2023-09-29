@@ -23,38 +23,41 @@
     });
 
     const chatContainer = document.getElementById("chat-container");
-    const chatArea = document.getElementById("chat-area");
-    const inputArea = document.getElementById("input-area");
-    const inputText = document.getElementById("input-text");
-    const sendButton = document.getElementById("send-button");
+const chatArea = document.getElementById("chat-area");
+const inputArea = document.getElementById("input-area");
+const inputText = document.getElementById("input-text");
+const sendButton = document.getElementById("send-button");
 
-    function sendMessage() {
-      const message = inputText.value;
-      inputText.value = "";
+function sendMessage() {
+  const message = inputText.value;
+  inputText.value = "";
 
-      chatGPT.talk({
-        prompt: message,
-      }).then((response) => {
-        chatArea.querySelector("#chat-log").innerHTML += `
-          <li class="user">
-            ${message}
-          </li>
-          <li class="bot">
-            ${response}
-          </li>
-        `;
-      });
-    }
+  chatGPT.talk({
+    prompt: message,
+  }).then((response) => {
+    chatArea.querySelector("#chat-log").innerHTML += `
+      <li class="user">
+        ${message}
+      </li>
+      <li class="bot">
+        ${response}
+      </li>
+    `;
+  });
+}
 
-    sendButton.addEventListener("click", sendMessage);
+sendButton.addEventListener("click", sendMessage);
 
-    // 初始化聊天
-    chatGPT.talk({
-      prompt: "你好，我是ChatGPT。",
-    }).then((response) => {
-      chatArea.querySelector("#chat-log").innerHTML += `
-        <li class="bot">
-          ${response}
+// 初始化聊天
+chatGPT.talk({
+  prompt: "你好，我是ChatGPT。",
+}).then((response) => {
+  chatArea.querySelector("#chat-log").innerHTML += `
+    <li class="bot">
+      ${response}
+    </li>
+  `;
+});
         </li>
       `;
     });
