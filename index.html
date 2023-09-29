@@ -15,7 +15,6 @@
   </div>
 
   <script type="text/javascript">
-    // ChatGPT API密钥
     const apiKey = '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';
 
     function appendMessage(sender, message) {
@@ -29,7 +28,7 @@
 
       // 向ChatGPT API发送请求
       $.ajax({
-        url: 'https://api.openai.com/v1/engines/davinci/completions',
+        url: 'https://api.openai.com/v1/engines/davinci-codex/completions',
         type: 'POST',
         headers: {
           'Authorization': `Bearer ${apiKey}`,
@@ -41,10 +40,10 @@
         }),
         success: function (response) {
           const chatGPTResponse = response.choices[0].text;
-          appendMessage("ChatGPT", chatGPTResponse); // 将ChatGPT生成的回复添加到对话框中
+          appendMessage("ChatGPT", chatGPTResponse);
         },
         error: function () {
-          appendMessage("ChatGPT", "An error occurred"); // 如果请求失败，显示错误消息
+          appendMessage("ChatGPT", "An error occurred");
         }
       });
 
