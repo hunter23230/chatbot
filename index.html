@@ -1,49 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-tw">
 <head>
-  <title>ChatGPT Conversation</title>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@openai/chatGPT@1.1.3/dist/chatGPT.min.js"></script>
+  <meta charset="UTF-8">
+  <title>ChatGPT</title>
 </head>
 <body>
-  <h1>ChatGPT Conversation</h1>
-  <div>
-    <input id="say" type="text" placeholder="Enter your message">
-    <button onclick="sendMessage()">Send</button>
-  </div>
-  <div id="conversation">
-    <p>Welcome! Type a message to ChatGPT.</p>
-  </div>
+  <h1>ChatGPT</h1>
+  <div id="webchatgpt"></div>
 
-    <script type="text/javascript">
-    console.log("API KEY:", apiKey);
-    console.log("User message:", userMessage);
-    console.log("ChatGPT response:", chatGPTResponse);
-    const apiKey = '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';
-    const chatGPT = new ChatGPT({
-      key: apiKey,
+  <script src="https://webchatgpt.com/js/webchatgpt.min.js"></script>
+  <script>
+    // 獲取您的 ChatGPT 帳戶的 Token
+    const token = "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";
+
+    // 初始化 ChatGPT
+    const webchatgpt = new WebChatGPT({
+      el: document.getElementById("webchatgpt"),
+      token: token
     });
 
-    function appendMessage(sender, message) {
-      const conversationDiv = document.getElementById("conversation");
-      conversationDiv.innerHTML += `<p><strong>${sender}:</strong> ${message}</p>`;
-    }
-
-    async function sendMessage() {
-      const userMessage = document.getElementById("say").value;
-      appendMessage("You", userMessage);
-
-      // 向ChatGPT API发送请求
-      const chatGPTResponse = await chatGPT.talk({
-        prompt: userMessage,
-        max_tokens: 50 // 可根据需要调整生成的回复长度
-      });
-
-      appendMessage("ChatGPT", chatGPTResponse);
-
-      // 清空输入框
-      document.getElementById("say").value = "";
-    }
+    // 啟用 ChatGPT
+    webchatgpt.enable();
   </script>
 </body>
 </html>
