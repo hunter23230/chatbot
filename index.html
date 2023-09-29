@@ -46,7 +46,7 @@
       var say = document.getElementById("say").value; // 取得使用者輸入的問句。
 	  document.getElementById("say").value = "";
       // 建立 chatGPT 物件
-      var chatGPT = new ChatGPT("YOUR_API_KEY");
+      var chatGPT = new ChatGPT("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");
       // 呼叫 chatGPT 的 generate() 方法進行回答
       var response = chatGPT.generate(say, {max_tokens: 1024});
       // 將回應文字加上換行符號
