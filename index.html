@@ -1,63 +1,46 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>ChatGPT對話程式</title>
+  <title>ChatGPT Conversation</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@openai/chatGPT@1.1.3/dist/chatGPT.min.js"></script>
 </head>
 <body>
-  <div id="chat-container">
-    <div id="chat-area">
-      <h2>聊天區</h2>
-      <ul id="chat-log"></ul>
-    </div>
-    <div id="input-area">
-      <input type="text" id="input-text" placeholder="輸入文字">
-      <button id="send-button">送出</button>
-    </div>
+  <h1>ChatGPT Conversation</h1>
+  <div>
+    <input id="say" type="text" placeholder="Enter your message">
+    <button onclick="sendMessage()">Send</button>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/@openai/chatGPT@1.1.3/dist/chatGPT.min.js"></script>
-  <script>
+  <div id="conversation">
+    <p>Welcome! Type a message to ChatGPT.</p>
+  </div>
+
+  <script type="text/javascript">
+    const apiKey = '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';
     const chatGPT = new ChatGPT({
-      key: "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",
-      locale: "zh-tw",
+      key: apiKey,
     });
 
-    const chatContainer = document.getElementById("chat-container");
-    const chatArea = document.getElementById("chat-area");
-    const inputArea = document.getElementById("input-area");
-    const inputText = document.getElementById("input-text");
-    const sendButton = document.getElementById("send-button");
-
-    function sendMessage() {
-      const message = inputText.value;
-      inputText.value = "";
-
-      chatGPT.talk({
-        prompt: message,
-      }).then((response) => {
-        chatArea.querySelector("#chat-log").innerHTML += `
-          <li class="user">
-            ${message}
-          </li>
-          <li class="bot">
-            ${response}
-          </li>
-        `;
-      });
+    function appendMessage(sender, message) {
+      const conversationDiv = document.getElementById("conversation");
+      conversationDiv.innerHTML += `<p><strong>${sender}:</strong> ${message}</p>`;
     }
 
-    sendButton.addEventListener("click", sendMessage);
+    async function sendMessage() {
+      const userMessage = document.getElementById("say").value;
+      appendMessage("You", userMessage);
 
-    // 初始化聊天
-    chatGPT.talk({
-      prompt: "你好，我是ChatGPT。",
-    }).then((response) => {
-      chatArea.querySelector("#chat-log").innerHTML += `
-        <li class="bot">
-          ${response}
-        </li>
-      `;
-    });
+      // 向ChatGPT API发送请求
+      const chatGPTResponse = await chatGPT.talk({
+        prompt: userMessage,
+        max_tokens: 50 // 可根据需要调整生成的回复长度
+      });
+
+      appendMessage("ChatGPT", chatGPTResponse);
+
+      // 清空输入框
+      document.getElementById("say").value = "";
+    }
   </script>
 </body>
 </html>
