@@ -8,7 +8,7 @@
   <h1>ChatGPT Conversation</h1>
   <div>
     <input id="say" type="text" placeholder="Enter your message">
-    <button onclick="answer()">Send</button>
+    <button onclick="sendMessage()">Send</button>
   </div>
   <div id="conversation">
     <p>Welcome! Type a message to ChatGPT.</p>
@@ -23,13 +23,13 @@
       conversationDiv.innerHTML += `<p><strong>${sender}:</strong> ${message}</p>`;
     }
 
-    function answer() {
+    function sendMessage() {
       const userMessage = document.getElementById("say").value;
       appendMessage("You", userMessage);
 
       // 向ChatGPT API发送请求
       $.ajax({
-        url: 'https://api.openai.com/v1/engines/davinci-codex/completions',
+        url: 'https://api.openai.com/v1/engines/davinci/completions',
         type: 'POST',
         headers: {
           'Authorization': `Bearer ${apiKey}`,
